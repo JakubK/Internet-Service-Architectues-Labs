@@ -26,12 +26,12 @@ public class CommandLine implements CommandLineRunner {
         Scanner scanner = new Scanner(System.in);
         while(true)
         {
-            System.out.println("MENU:");
-            System.out.println("1:List all questions");
-            System.out.println("2:List all answers");
-            System.out.println("3:Add answer");
-            System.out.println("4:Delete answer");
-            System.out.println("5:Exit");
+//            System.out.println("MENU:");
+//            System.out.println("1:List all questions");
+//            System.out.println("2:List all answers");
+//            System.out.println("3:Add answer");
+//            System.out.println("4:Delete answer");
+//            System.out.println("5:Exit");
             int choice = scanner.nextInt();
             if(choice == 1)
             {
@@ -47,20 +47,13 @@ public class CommandLine implements CommandLineRunner {
             }
             if(choice == 3)
             {
-                System.out.println("Pass id of question you wish to add answer to");
+                System.out.println("Pass id of question you which to add answer to");
                 int questionId = scanner.nextInt();
                 System.out.println("Now pass new id, text and if answer is correct");
-
-
-                int ansId = scanner.nextInt();
-                String text = scanner.next();
-                boolean isCorrect = scanner.nextBoolean();
-
-
                 Answer newAns = Answer.builder()
-                        .id(ansId)
-                        .text(text)
-                        .isCorrect(isCorrect)
+                        .id(scanner.nextInt())
+                        .text(scanner.next())
+                        .isCorrect(scanner.nextBoolean())
                         .question(questionService.find(questionId).get())
                         .build();
                 answerService.add(newAns);

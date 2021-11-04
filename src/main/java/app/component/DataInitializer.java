@@ -26,25 +26,21 @@ public class DataInitializer {
     {
         System.out.println("Feeding data");
         Question q = Question.builder()
-                .id(1)
                 .content("Some tricky question")
                 .build();
 
         quest.add(q);
         Answer firstAns = Answer.builder()
-                .id(1)
                 .text("Answer A")
                 .question(q)
                 .isCorrect(true).build();
 
         Answer secondAns = Answer.builder()
-                .id(2)
                 .text("Answer B")
                 .question(q)
                 .isCorrect(false).build();
 
         Answer thirdAns = Answer.builder()
-                .id(3)
                 .text("Answer C")
                 .question(q)
                 .isCorrect(true).build();

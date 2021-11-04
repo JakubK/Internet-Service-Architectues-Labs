@@ -5,6 +5,7 @@ import app.repository.AnswerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,15 +19,16 @@ public class AnswerService {
     }
 
     public List<Answer> getAll() {
-        return repository.getAll();
+        return repository.findAll();
     }
 
     public Optional<Answer> find(Integer id) {
-        return repository.find(id);
+        return repository.findById(id);
     }
 
+    @Transactional
     public void add(Answer item) {
-        repository.add(item);
+        repository.save(item);
     }
 
     public void delete(Answer item) {
