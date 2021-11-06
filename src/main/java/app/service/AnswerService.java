@@ -27,8 +27,13 @@ public class AnswerService {
     }
 
     @Transactional
-    public void add(Answer item) {
-        repository.save(item);
+    public Answer add(Answer item) {
+        return repository.save(item);
+    }
+
+    @Transactional
+    public void update(Answer answer) {
+        repository.save(answer);
     }
 
     public void delete(Answer item) {

@@ -28,8 +28,13 @@ public class QuestionService {
     }
 
     @Transactional
-    public void add(Question item) {
-        repository.save(item);
+    public Question add(Question item) {
+        return repository.save(item);
+    }
+
+    @Transactional
+    public void update(Question quest) {
+        repository.save(quest);
     }
 
     public void delete(Question item) {

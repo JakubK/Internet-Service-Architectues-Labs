@@ -15,6 +15,7 @@ import java.util.function.Function;
 public class CreateAnswerRequest {
     private String text;
     private boolean isCorrect;
+    private int questionId;
 
     public static Function<CreateAnswerRequest, Answer> dtoToEntityMapper() {
         return  request -> Answer.builder()

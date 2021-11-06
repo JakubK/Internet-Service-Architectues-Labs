@@ -21,24 +21,22 @@ public class GetQuestionsResponse {
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     @ToString
     @EqualsAndHashCode
-    public static class Question {
-
+    private static class Question {
         private String content;
         private boolean isMultiselect;
-
+        private int id;
     }
 
     @Singular
     private List<Question> questions;
 
-    public static Function<Collection<Question>,GetQuestionsResponse> entityToDtoMapper() {
+    public static Function<Collection<app.model.Question>,GetQuestionsResponse> entityToDtoMapper() {
         return questions -> {
             GetQuestionsResponseBuilder response = GetQuestionsResponse.builder();
             questions.stream()
                     .map(quest -> Question.builder()
-                        .content(quest.getContent())
-                        .isMultiselect(quest.isMultiselect())
-                            .build())
+                        .content(quest.getContent()).id(quest.getId())
+                        .isMultiselect(quest.isMultiSelect()).build())
                     .forEach(response::question);
             return response.build();
         };

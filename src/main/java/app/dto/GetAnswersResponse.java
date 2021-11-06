@@ -21,19 +21,21 @@ public class GetAnswersResponse {
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     @ToString
     @EqualsAndHashCode
-    public static class Answer {
+    private static class Answer {
         private String text;
         private boolean isCorrect;
+        private int id;
     }
 
     @Singular
     private List<Answer> answers;
 
-    public static Function<Collection<Answer>,GetAnswersResponse> entityToDtoMapper() {
+    public static Function<Collection<app.model.Answer>,GetAnswersResponse> entityToDtoMapper() {
         return answers -> {
             GetAnswersResponseBuilder response = GetAnswersResponse.builder();
             answers.stream()
                     .map(ans -> Answer.builder()
+                            .id(ans.getId())
                             .text(ans.getText())
                             .isCorrect(ans.isCorrect())
                             .build())
