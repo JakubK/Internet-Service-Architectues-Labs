@@ -1,6 +1,7 @@
 package app.service;
 
 import app.model.Answer;
+import app.model.Question;
 import app.repository.AnswerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,10 @@ public class AnswerService {
 
     public List<Answer> getAll() {
         return repository.findAll();
+    }
+
+    public List<Answer> getAllByQuestion(Question question) {
+        return repository.findAllByQuestion(question);
     }
 
     public Optional<Answer> find(Integer id) {

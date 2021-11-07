@@ -1,6 +1,5 @@
 package app.service;
 
-import app.model.Answer;
 import app.model.Question;
 import app.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
