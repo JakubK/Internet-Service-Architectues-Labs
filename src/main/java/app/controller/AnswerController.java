@@ -69,11 +69,11 @@ public class AnswerController {
 
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteAnswer(@PathVariable("id") int id) {
-        Answer answer = answerService.find(id).get();
-        if(answer == null) {
+        Optional<Answer> answer = answerService.find(id);
+        if(!answer.isPresent()) {
             return ResponseEntity.notFound().build();
         }
-        answerService.delete(answer);
+        answerService.delete(answer.get());
         return ResponseEntity.ok().build();
     }
 }

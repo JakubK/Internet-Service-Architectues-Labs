@@ -21,10 +21,12 @@ import java.util.function.Function;
 @RequestMapping("api/questions")
 public class QuestionController {
     private QuestionService questionService;
+    private AnswerService answerService;
 
     @Autowired
-    public QuestionController(QuestionService questionService) {
+    public QuestionController(QuestionService questionService, AnswerService answerService) {
         this.questionService = questionService;
+        this.answerService = answerService;
     }
 
     @GetMapping
@@ -67,11 +69,12 @@ public class QuestionController {
 
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteQuestion(@PathVariable("id") int id) {
-        Question question = questionService.find(id).get();
-        if(question == null) {
+        Optional<Question> question = questionService.find(id);
+        if(!question.isPresent()) {
             return ResponseEntity.notFound().build();
         }
-        questionService.delete(question);
+        answerService.getAllByQuestion(question.get()).forEach(ans -> answerService.delete(ans));
+        questionService.delete(question.get());
         return ResponseEntity.ok().build();
     }
 }
