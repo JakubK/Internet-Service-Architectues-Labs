@@ -23,7 +23,6 @@ public class GetAnswersResponse {
     @EqualsAndHashCode
     private static class Answer {
         private String text;
-        private boolean isCorrect;
         private int id;
     }
 
@@ -37,7 +36,6 @@ public class GetAnswersResponse {
                     .map(ans -> Answer.builder()
                             .id(ans.getId())
                             .text(ans.getText())
-                            .isCorrect(ans.isCorrect())
                             .build())
                     .forEach(response::answer);
             return response.build();

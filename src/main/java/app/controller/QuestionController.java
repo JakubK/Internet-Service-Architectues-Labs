@@ -39,9 +39,15 @@ public class QuestionController {
 
     @GetMapping("{id}")
     public ResponseEntity<GetQuestionResponse> getQuestion(@PathVariable("id") int id) {
-        return questionService.find(id)
-                .map(value -> ResponseEntity.ok(GetQuestionResponse.entityToDtoMapper().apply(value)))
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        Optional<Question> quest = questionService.find(id);
+        if(quest.isPresent()) {
+            Question q = quest.get();
+            q.setAnswers(answerService.getAllByQuestion(q));
+            return ResponseEntity.ok(GetQuestionResponse.entityToDtoMapper().apply(q));
+        }
+        else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping
