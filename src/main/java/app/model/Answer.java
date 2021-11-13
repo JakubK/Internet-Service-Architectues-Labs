@@ -1,5 +1,6 @@
 package app.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -28,5 +29,6 @@ public class Answer {
 
     @ManyToOne
     @JoinColumn(name = "question")
+    @JsonIgnore
     private Question question;
 }
