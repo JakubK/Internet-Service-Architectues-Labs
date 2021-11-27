@@ -246,6 +246,28 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/answers/question/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/answers/question/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"answers",
+						"question",
+						"1"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
