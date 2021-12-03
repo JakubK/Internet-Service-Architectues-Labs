@@ -1,20 +1,17 @@
 <script setup lang="ts">
-import { Question } from '../models/question';
+import { QuestionsResponse } from '../models/question';
 import { onMounted, ref, Ref } from 'vue';
 
 import router from '../router';
+const questions: Ref<QuestionsResponse> = ref({questions: []});
 
-onMounted(() => {
+onMounted(async() => {
   //Download questions
-  console.log('xd');
+  const data = await fetch("http://localhost:8080/api/questions", {
+    method: 'GET'
+  });
+  questions.value = await data.json();
 });
-
-const questions: Ref<Array<Question>> = ref([]);
-questions.value = [{
-  id: 1,
-  content: 'test',
-  isMultiSelect: true
-}]
 
 const onRowClick = (id: number) => {
   //redirect to question details
@@ -35,25 +32,31 @@ const onDelete = (e: MouseEvent, id: number) => {
 
 const onEdit = (e: MouseEvent, id: number) => {
   e.stopPropagation();
+  router.push({
+    path: '/question/edit',
+    query: {
+      id
+    }
+  })
 }
 </script>
 
 <template>
-  <button>Add new Question</button>
+  <router-link to="/question/new">
+    <button>Add new Question</button>
+  </router-link>
   <table class="category-list">
     <thead>
       <tr>
         <th>Id</th>
         <th>Content</th>
-        <th>Is Multiselect?</th>
         <th>Actions</th>
       </tr>
     </thead>
     <tbody>
-      <tr @click="onRowClick(quest.id)" v-for="quest in questions" :key="quest.id">
+      <tr @click="onRowClick(quest.id)" v-for="quest in questions.questions" :key="quest.id">
         <th>{{ quest.id }}</th>
         <th>{{ quest.content }}</th>
-        <th>{{ quest.isMultiSelect }}</th>
         <th>
           <button @click="onEdit($event, quest.id)">Edit</button>
           <button @click="onDelete($event, quest.id)">Delete</button>

@@ -1,16 +1,25 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import CategoryList from '../components/CategoryList.vue';
-import CategoryDetails from '../components/CategoryDetails.vue';
+import QuestionList from '../components/QuestionList.vue';
+import QuestionDetails from '../components/QuestionDetails.vue';
+import AddQuestion from '../components/AddQuestion.vue';
 
 const routes = [
   {
     path: '/',
-    component: CategoryList
+    component: QuestionList
   },
   {
     path: '/question',
-    component: CategoryDetails
+    component: QuestionDetails
+  },
+  {
+    path: '/question/edit',
+    component: QuestionDetails
+  },
+  {
+    path: '/question/new',
+    component: AddQuestion
   }
 ]
 
