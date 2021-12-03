@@ -85,7 +85,15 @@ const deleteAnswer = async(id:number) => {
         <tr v-for="ans in answers" :key="ans.id">
           <td>{{ ans.id }}</td>
           <td>{{ ans.text }}</td>
-          <td><button @click="deleteAnswer(ans.id)">Delete</button></td>
+          <td>
+            <router-link :to="{path:'/answer', query: { id: ans.id }}">
+              <button>Details</button>
+            </router-link>
+            <router-link :to="{path:'/answer/edit', query: { id: ans.id }}">
+              <button>Edit</button>
+            </router-link>
+            <button @click="deleteAnswer(ans.id)">Delete</button>
+          </td>
         </tr>
       </tbody>
     </table>

@@ -4,6 +4,7 @@ import QuestionList from '../components/QuestionList.vue';
 import QuestionDetails from '../components/QuestionDetails.vue';
 import AddQuestion from '../components/AddQuestion.vue';
 import AddAnswer from '../components/AddAnswer.vue';
+import AnswerDetails from '../components/AnswerDetails.vue';
 
 const routes = [
   {
@@ -23,8 +24,16 @@ const routes = [
     component: AddQuestion
   },
   {
+    path: '/answer',
+    component: AnswerDetails
+  },
+  {
     path: '/answer/new',
     component: AddAnswer
+  },
+  {
+    path: '/answer/edit',
+    component: AnswerDetails
   }
 ]
 

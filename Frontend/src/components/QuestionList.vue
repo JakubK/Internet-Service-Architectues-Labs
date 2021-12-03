@@ -13,18 +13,7 @@ onMounted(async() => {
   questions.value = await data.json();
 });
 
-const onRowClick = (id: number) => {
-  //redirect to question details
-  router.push({
-    path: 'question',
-    query: {
-      id
-    }
-  })
-}
-
 const onDelete = async(e: MouseEvent, id: number) => {
-  e.stopPropagation();
   //send DELETE
   await fetch(`http://localhost:8080/api/questions/${id}`, {
     method: 'DELETE'
@@ -34,7 +23,6 @@ const onDelete = async(e: MouseEvent, id: number) => {
 }
 
 const onEdit = (e: MouseEvent, id: number) => {
-  e.stopPropagation();
   router.push({
     path: '/question/edit',
     query: {
@@ -57,11 +45,16 @@ const onEdit = (e: MouseEvent, id: number) => {
       </tr>
     </thead>
     <tbody>
-      <tr @click="onRowClick(quest.id)" v-for="quest in questions.questions" :key="quest.id">
+      <tr v-for="quest in questions.questions" :key="quest.id">
         <th>{{ quest.id }}</th>
         <th>{{ quest.content }}</th>
         <th>
-          <button @click="onEdit($event, quest.id)">Edit</button>
+          <router-link :to="{path: 'question', query: { id: quest.id }}">
+            <button>Details</button>
+          </router-link>
+          <router-link :to="{path: '/question/edit', query: { id: quest.id }}">
+            <button>Edit</button>
+          </router-link>
           <button @click="onDelete($event, quest.id)">Delete</button>
         </th>
       </tr>
