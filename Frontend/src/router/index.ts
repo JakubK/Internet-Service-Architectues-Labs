@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import QuestionList from '../components/QuestionList.vue';
 import QuestionDetails from '../components/QuestionDetails.vue';
 import AddQuestion from '../components/AddQuestion.vue';
+import AddAnswer from '../components/AddAnswer.vue';
 
 const routes = [
   {
@@ -20,6 +21,10 @@ const routes = [
   {
     path: '/question/new',
     component: AddQuestion
+  },
+  {
+    path: '/answer/new',
+    component: AddAnswer
   }
 ]
 

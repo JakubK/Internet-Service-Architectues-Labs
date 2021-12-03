@@ -19,7 +19,9 @@
 
 <template>
   <div class="question-add">
-    <input type="text" v-model="newQuestion.content"/>
+    <label>Question content</label>
+    <input type="text" v-model="newQuestion.content"/><br>
+    <label>Question multiSelect</label>
     <input type="checkbox" v-model="newQuestion.multiSelect"/>
   </div>
   <button @click="addQuestion">Add question</button>

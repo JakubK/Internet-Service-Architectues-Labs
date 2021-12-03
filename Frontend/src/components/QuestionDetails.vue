@@ -39,9 +39,20 @@ const applyChanges = async () => {
   });
 }
 
+const deleteAnswer = async(id:number) => {
+  await fetch(`http://localhost:8080/api/answers/${id}`, {
+    method: 'DELETE'
+  });
+  
+  answers.value.splice(answers.value.findIndex(x => x.id === id), 1);
+}
+
 </script>
 
 <template>
+  <router-link v-if="readOnly" :to="{ path: '/answer/new', query: { id: route.query.id }}">
+    <button>Add new Answer</button>
+  </router-link>
   <table class="category-details">
     <tr>
       <th>Id</th>
@@ -67,12 +78,14 @@ const applyChanges = async () => {
         <tr>
           <th>Id</th>
           <th>Text</th>
+          <td>Actions</td>
         </tr>
       </thead>
       <tbody>
         <tr v-for="ans in answers" :key="ans.id">
           <td>{{ ans.id }}</td>
           <td>{{ ans.text }}</td>
+          <td><button @click="deleteAnswer(ans.id)">Delete</button></td>
         </tr>
       </tbody>
     </table>
