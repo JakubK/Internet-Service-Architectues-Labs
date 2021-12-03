@@ -4,8 +4,10 @@ export interface QuestionsResponse {
   questions: Question[];
 }
 
-export type QuestionDetailsResponse = Partial<{
+export type CreateQuestionRequest = {
   multiSelect: boolean
   content: string;
-}>;
+};
+
+export type QuestionDetailsResponse = Partial<CreateQuestionRequest>;
 

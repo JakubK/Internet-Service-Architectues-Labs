@@ -23,11 +23,14 @@ const onRowClick = (id: number) => {
   })
 }
 
-const onDelete = (e: MouseEvent, id: number) => {
+const onDelete = async(e: MouseEvent, id: number) => {
   e.stopPropagation();
   //send DELETE
-
+  await fetch(`http://localhost:8080/api/questions/${id}`, {
+    method: 'DELETE'
+  });
   //update array locally
+  questions.value.questions.splice(questions.value.questions.findIndex(x => x.id === id), 1);
 }
 
 const onEdit = (e: MouseEvent, id: number) => {
