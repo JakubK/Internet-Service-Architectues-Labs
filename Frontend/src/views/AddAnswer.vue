@@ -2,6 +2,7 @@
   import { Ref, ref } from 'vue';
   import { useRoute } from 'vue-router';
   import { CreateAnswerRequest } from '../models/answer';
+import router from '../router';
 
   const route = useRoute();
   const newAnswer: Ref<CreateAnswerRequest> = ref({
@@ -18,6 +19,7 @@
       },
       body: JSON.stringify(newAnswer.value)
     });
+    router.go(-1);
   }
 </script>
 

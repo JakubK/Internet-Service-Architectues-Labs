@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import { Ref, ref } from 'vue';
   import { CreateQuestionRequest } from '../models/question';
+  import router from '../router';
   const newQuestion: Ref<CreateQuestionRequest> = ref({
     content: '',
     multiSelect: false
@@ -14,6 +15,7 @@
       },
       body: JSON.stringify(newQuestion.value)
     });
+    router.go(-1);
   }
 </script>
 

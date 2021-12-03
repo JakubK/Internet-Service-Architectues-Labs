@@ -2,6 +2,7 @@
 import { onMounted, ref, Ref } from 'vue';
 import { CreateAnswerRequest } from '../models/answer';
 import { useRoute } from 'vue-router'
+import router from '../router';
 
 const answer: Ref<Partial<CreateAnswerRequest>> = ref({})
 const route = useRoute();
@@ -24,6 +25,7 @@ const applyChanges = async () => {
     },
     body: JSON.stringify(answer.value)
   });
+  router.go(-1)
 }
 </script>
 

@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import QuestionList from '../components/QuestionList.vue';
-import QuestionDetails from '../components/QuestionDetails.vue';
-import AddQuestion from '../components/AddQuestion.vue';
-import AddAnswer from '../components/AddAnswer.vue';
-import AnswerDetails from '../components/AnswerDetails.vue';
+import QuestionList from '../views/QuestionList.vue';
+import QuestionDetails from '../views/QuestionDetails.vue';
+import AddQuestion from '../views/AddQuestion.vue';
+import AddAnswer from '../views/AddAnswer.vue';
+import AnswerDetails from '../views/AnswerDetails.vue';
 
 const routes = [
   {

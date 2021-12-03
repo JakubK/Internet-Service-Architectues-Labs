@@ -3,6 +3,7 @@ import { onMounted, ref, Ref } from 'vue';
 import { QuestionDetailsResponse } from '../models/question';
 import { Answer } from '../models/answer';
 import { useRoute } from 'vue-router'
+import router from '../router';
 
 const question: Ref<QuestionDetailsResponse> = ref({})
 const route = useRoute();
@@ -37,6 +38,7 @@ const applyChanges = async () => {
       multiSelect: question.value.multiSelect
     })
   });
+  router.go(-1);
 }
 
 const deleteAnswer = async(id:number) => {
