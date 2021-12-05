@@ -4,6 +4,7 @@ import { QuestionDetailsResponse } from '../models/question';
 import { Answer } from '../models/answer';
 import { useRoute } from 'vue-router'
 import router from '../router';
+import { Delete, Get, Put } from '../api/request';
 
 const question: Ref<QuestionDetailsResponse> = ref({})
 const route = useRoute();
@@ -13,39 +14,26 @@ const readOnly = !route.fullPath.includes('edit');
 
 onMounted(async () => {
   //fetch details of question
-  const data = await fetch(`http://localhost:8080/api/questions/${route.query.id}`, {
-    method: 'GET'
-  });
+  const data = await Get(`questions/${route.query.id}`);
   question.value = await data.json();
 
   if(readOnly) {
     //Download questions
-    const data = await fetch(`http://localhost:8080/api/answers/question/${route.query.id}`, {
-      method: 'GET'
-    });
+    const data = await Get(`question/${route.query.id}`);
     answers.value = await data.json();
   }
 });
 
 const applyChanges = async () => {
-  await fetch(`http://localhost:8080/api/questions/${route.query.id}`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      content: question.value.content,
-      multiSelect: question.value.multiSelect
-    })
+  await Put(`questions/${route.query.id}`, {
+    content: question.value.content,
+    multiSelect: question.value.multiSelect
   });
   router.go(-1);
 }
 
 const deleteAnswer = async(id:number) => {
-  await fetch(`http://localhost:8080/api/answers/${id}`, {
-    method: 'DELETE'
-  });
-  
+  await Delete(`answers/${id}`);
   answers.value.splice(answers.value.findIndex(x => x.id === id), 1);
 }
 

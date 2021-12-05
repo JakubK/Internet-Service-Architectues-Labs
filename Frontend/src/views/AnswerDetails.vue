@@ -3,6 +3,7 @@ import { onMounted, ref, Ref } from 'vue';
 import { CreateAnswerRequest } from '../models/answer';
 import { useRoute } from 'vue-router'
 import router from '../router';
+import { Get, Put } from '../api/request';
 
 const answer: Ref<Partial<CreateAnswerRequest>> = ref({})
 const route = useRoute();
@@ -11,20 +12,12 @@ const readOnly = !route.fullPath.includes('edit');
 
 onMounted(async () => {
   //fetch details of answer
-  const data = await fetch(`http://localhost:8080/api/answers/${route.query.id}`, {
-    method: 'GET'
-  });
+  const data = await Get(`answers/${route.query.id}`);
   answer.value = await data.json();
 });
 
 const applyChanges = async () => {
-  await fetch(`http://localhost:8080/api/answers/${route.query.id}`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(answer.value)
-  });
+  await Put(`answers/${route.query.id}`, answer.value);
   router.go(-1)
 }
 </script>

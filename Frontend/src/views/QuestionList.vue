@@ -1,34 +1,21 @@
 <script setup lang="ts">
 import { QuestionsResponse } from '../models/question';
 import { onMounted, ref, Ref } from 'vue';
+import { Delete, Get } from '../api/request';
 
-import router from '../router';
 const questions: Ref<QuestionsResponse> = ref({questions: []});
 
 onMounted(async() => {
   //Download questions
-  const data = await fetch("http://localhost:8080/api/questions", {
-    method: 'GET'
-  });
+  const data = await Get("questions");
   questions.value = await data.json();
 });
 
 const onDelete = async(e: MouseEvent, id: number) => {
   //send DELETE
-  await fetch(`http://localhost:8080/api/questions/${id}`, {
-    method: 'DELETE'
-  });
+  await Delete(`questions/${id}`);
   //update array locally
   questions.value.questions.splice(questions.value.questions.findIndex(x => x.id === id), 1);
-}
-
-const onEdit = (e: MouseEvent, id: number) => {
-  router.push({
-    path: '/question/edit',
-    query: {
-      id
-    }
-  })
 }
 </script>
 

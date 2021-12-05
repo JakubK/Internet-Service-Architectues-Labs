@@ -1,8 +1,9 @@
 <script setup lang="ts">
   import { Ref, ref } from 'vue';
   import { useRoute } from 'vue-router';
+import { Post } from '../api/request';
   import { CreateAnswerRequest } from '../models/answer';
-import router from '../router';
+  import router from '../router';
 
   const route = useRoute();
   const newAnswer: Ref<CreateAnswerRequest> = ref({
@@ -12,13 +13,7 @@ import router from '../router';
   });
 
   const addAnswer = async() => {
-    await fetch(`http://localhost:8080/api/answers`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(newAnswer.value)
-    });
+    await Post('answers', newAnswer.value);
     router.go(-1);
   }
 </script>
