@@ -30,13 +30,17 @@ const applyChanges = async () => {
     </tr>
     <tr>
       <th>Text</th>
-      <td v-if="readOnly">{{answer.text}}</td>
-      <td v-else><input type="text" v-model="answer.text"/></td>
+      <td v-if="readOnly">{{ answer.text }}</td>
+      <td v-else>
+        <input type="text" v-model="answer.text" />
+      </td>
     </tr>
     <tr>
       <th>Is correct?</th>
-      <td v-if="readOnly">{{answer.correct}}</td>
-      <td v-else><input type="checkbox" v-model="answer.correct"/></td>
+      <td v-if="readOnly">{{ answer.correct }}</td>
+      <td v-else>
+        <input type="checkbox" v-model="answer.correct" />
+      </td>
     </tr>
   </table>
 

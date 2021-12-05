@@ -17,7 +17,7 @@ onMounted(async () => {
   const data = await Get(`questions/${route.query.id}`);
   question.value = await data.json();
 
-  if(readOnly) {
+  if (readOnly) {
     //Download questions
     const data = await Get(`question/${route.query.id}`);
     answers.value = await data.json();
@@ -32,7 +32,7 @@ const applyChanges = async () => {
   router.go(-1);
 }
 
-const deleteAnswer = async(id:number) => {
+const deleteAnswer = async (id: number) => {
   await Delete(`answers/${id}`);
   answers.value.splice(answers.value.findIndex(x => x.id === id), 1);
 }
@@ -40,7 +40,7 @@ const deleteAnswer = async(id:number) => {
 </script>
 
 <template>
-  <router-link v-if="readOnly" :to="{ path: '/answer/new', query: { id: route.query.id }}">
+  <router-link v-if="readOnly" :to="{ path: '/answer/new', query: { id: route.query.id } }">
     <button>Add new Answer</button>
   </router-link>
   <table class="category-details">
@@ -50,19 +50,23 @@ const deleteAnswer = async(id:number) => {
     </tr>
     <tr>
       <th>Content</th>
-      <td v-if="readOnly">{{question.content}}</td>
-      <td v-else><input type="text" v-model="question.content"/></td>
+      <td v-if="readOnly">{{ question.content }}</td>
+      <td v-else>
+        <input type="text" v-model="question.content" />
+      </td>
     </tr>
     <tr>
       <th>Is multiselectable?</th>
-      <td v-if="readOnly">{{question.multiSelect}}</td>
-      <td v-else><input type="checkbox" v-model="question.multiSelect"/></td>
+      <td v-if="readOnly">{{ question.multiSelect }}</td>
+      <td v-else>
+        <input type="checkbox" v-model="question.multiSelect" />
+      </td>
     </tr>
   </table>
 
   <button v-if="!readOnly" @click="applyChanges()">Apply changes</button>
   <div v-else>
-    <hr/>
+    <hr />
     <table>
       <thead>
         <tr>
@@ -76,10 +80,10 @@ const deleteAnswer = async(id:number) => {
           <td>{{ ans.id }}</td>
           <td>{{ ans.text }}</td>
           <td>
-            <router-link :to="{path:'/answer', query: { id: ans.id }}">
+            <router-link :to="{ path: '/answer', query: { id: ans.id } }">
               <button>Details</button>
             </router-link>
-            <router-link :to="{path:'/answer/edit', query: { id: ans.id }}">
+            <router-link :to="{ path: '/answer/edit', query: { id: ans.id } }">
               <button>Edit</button>
             </router-link>
             <button @click="deleteAnswer(ans.id)">Delete</button>
