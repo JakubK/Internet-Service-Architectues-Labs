@@ -19,7 +19,7 @@ onMounted(async () => {
 
   if (readOnly) {
     //Download questions
-    const data = await Get(`question/${route.query.id}`);
+    const data = await Get(`answers/question/${route.query.id}`);
     answers.value = await data.json();
   }
 });
