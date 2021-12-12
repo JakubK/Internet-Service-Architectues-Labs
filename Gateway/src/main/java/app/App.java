@@ -24,15 +24,15 @@ public class App {
         return builder
                 .routes()
                 .route("questions", r -> r
-                        .host("localhost:8080")
+                        .host("gateway:8080")
                         .and()
                         .path("/api/questions/{id}", "/api/questions")
-                        .uri("http://localhost:8081"))
+                        .uri("http://questions:8081"))
                 .route("answers", r -> r
-                        .host("localhost:8080")
+                        .host("gateway:8080")
                         .and()
                         .path("/api/answers/{id}", "/api/answers",  "/api/answers/question/{id}")
-                        .uri("http://localhost:8082"))
+                        .uri("http://answers:8082"))
                 .build();
     }
 

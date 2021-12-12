@@ -5,6 +5,12 @@
 
     <modelVersion>4.0.0</modelVersion>
 
+    <groupId>pl.edu.pg.eti.kask</groupId>
+    <artifactId>Answers</artifactId>
+    <version>0.0.1</version>
+
+    <name>Simple RPG</name>
+    <description>Simple RPG game</description>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -12,12 +18,6 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>pl.edu.pg.eti.kask</groupId>
-    <artifactId>simple-rpg</artifactId>
-    <version>1.0-SNAPSHOT</version>
-
-    <name>Simple RPG</name>
-    <description>Simple RPG game</description>
 
     <properties>
         <maven.compiler.target>11</maven.compiler.target>
