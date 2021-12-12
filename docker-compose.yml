@@ -1,0 +1,26 @@
+version: '3.3'
+services:
+  proxy:
+    ports:
+      - 80:80
+    build:
+      dockerfile: Dockerfile
+      context: ReverseProxy
+  gateway:
+    build:
+      dockerfile: Dockerfile
+      context: Gateway
+  answers:
+    build:
+      dockerfile: Dockerfile
+      context: Answers
+  questions:
+    depends_on:
+      - answers
+    build:
+      dockerfile: Dockerfile
+      context: Questions
+  frontend:
+    build:
+      dockerfile: Dockerfile
+      context: Frontend
