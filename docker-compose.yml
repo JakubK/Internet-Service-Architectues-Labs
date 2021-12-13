@@ -6,10 +6,15 @@ services:
     build:
       dockerfile: Dockerfile
       context: ReverseProxy
+    depends_on:
+      - gateway
   gateway:
     build:
       dockerfile: Dockerfile
       context: Gateway
+    depends_on:
+      - questions
+      - answers
   answers:
     build:
       dockerfile: Dockerfile
@@ -24,3 +29,5 @@ services:
     build:
       dockerfile: Dockerfile
       context: Frontend
+    depends_on:
+      - proxy
