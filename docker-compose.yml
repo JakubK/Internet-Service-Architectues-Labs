@@ -5,26 +5,26 @@ services:
       - 80:80
     build:
       dockerfile: Dockerfile
-      context: ReverseProxy
+      context: reverseProxy
     depends_on:
       - gateway
   gateway:
     build:
       dockerfile: Dockerfile
-      context: Gateway
+      context: gateway
     depends_on:
       - questions
       - answers
   answers:
     build:
       dockerfile: Dockerfile
-      context: Answers
+      context: answers
   questions:
     depends_on:
       - answers
     build:
       dockerfile: Dockerfile
-      context: Questions
+      context: questions
     healthcheck:
       test: ["CMD", "ping", "answers"]
       interval: 1m30s
@@ -34,6 +34,6 @@ services:
   frontend:
     build:
       dockerfile: Dockerfile
-      context: Frontend
+      context: frontend
     depends_on:
       - proxy
