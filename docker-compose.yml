@@ -25,12 +25,7 @@ services:
     build:
       dockerfile: Dockerfile
       context: questions
-    healthcheck:
-      test: ["CMD", "ping", "answers"]
-      interval: 1m30s
-      timeout: 30s
-      retries: 5
-      start_period: 30s
+    restart: on-failure
   frontend:
     build:
       dockerfile: Dockerfile
