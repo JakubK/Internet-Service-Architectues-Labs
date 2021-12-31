@@ -5,6 +5,10 @@ import app.repository.FileRepository;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.id.GUIDGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -41,6 +45,32 @@ public class FileController {
       throw new Exception(ex.getMessage(), ex);
     }
   }
+
+  @GetMapping(path = "download/{id}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+  public ResponseEntity<Resource> download(@PathVariable("id") int id) throws IOException {
+    if(fileRepository.existsById(id)) {
+      var f = fileRepository.findById(id).get();
+      java.io.File file = new java.io.File(f.getFilePath());
+
+      Path path = Paths.get(file.getAbsolutePath());
+      ByteArrayResource resource = new ByteArrayResource(Files.readAllBytes(path));
+      HttpHeaders headers = new HttpHeaders();
+      headers.add("Content-Disposition", "attachment; filename=\"" + file.getName()+ "\"");
+      headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+      headers.add("Pragma", "no-cache");
+      headers.add("Expires", "0");
+      headers.setContentDispositionFormData("attachment", file.getName());
+
+      String mimeType = Files.probeContentType(path);
+
+      return ResponseEntity.ok()
+              .contentType(MediaType.parseMediaType(mimeType))
+              .contentLength(file.length())
+              .body(resource);
+    }
+    return ResponseEntity.notFound().build();
+  }
+
 
   @PostMapping
   public ResponseEntity uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("id") int id) throws IOException {

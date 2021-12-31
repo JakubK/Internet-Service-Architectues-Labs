@@ -36,7 +36,7 @@ public class App {
                 .route("files", r -> r
                         .host("gateway:8080")
                         .and()
-                        .path("/api/files", "/api/files/{id}")
+                        .path("/api/files", "/api/files/{id}", "/api/files/download/{id}")
                         .uri("http://files:8080"))
                 .build();
     }
