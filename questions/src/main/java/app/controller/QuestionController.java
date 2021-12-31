@@ -39,7 +39,6 @@ public class QuestionController {
         Optional<Question> quest = questionService.find(id);
         if(quest.isPresent()) {
             Question q = quest.get();
-//            q.setAnswers(answerService.getAllByQuestion(q));
             return ResponseEntity.ok(GetQuestionResponse.entityToDtoMapper().apply(q));
         }
         else {
@@ -55,7 +54,6 @@ public class QuestionController {
                 .apply(request);
 
         question = questionService.add(question);
-
 
         return ResponseEntity.created(builder.pathSegment("api","questions","{id}")
                 .buildAndExpand(question.getId()).toUri())
@@ -79,7 +77,6 @@ public class QuestionController {
         if(!question.isPresent()) {
             return ResponseEntity.notFound().build();
         }
-//        answerService.getAllByQuestion(question.get()).forEach(ans -> answerService.delete(ans));
         questionService.delete(question.get());
         return ResponseEntity.ok().build();
     }

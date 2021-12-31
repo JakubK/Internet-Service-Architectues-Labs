@@ -27,12 +27,17 @@ public class App {
                         .host("gateway:8080")
                         .and()
                         .path("/api/questions/{id}", "/api/questions")
-                        .uri("http://questions:8081"))
+                        .uri("http://questions:8080"))
                 .route("answers", r -> r
                         .host("gateway:8080")
                         .and()
                         .path("/api/answers/{id}", "/api/answers",  "/api/answers/question/{id}")
-                        .uri("http://answers:8082"))
+                        .uri("http://answers:8080"))
+                .route("files", r -> r
+                        .host("gateway:8080")
+                        .and()
+                        .path("/api/files", "/api/files/{id}")
+                        .uri("http://files:8080"))
                 .build();
     }
 

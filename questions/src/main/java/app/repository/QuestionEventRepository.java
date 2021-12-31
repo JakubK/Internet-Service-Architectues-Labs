@@ -9,20 +9,23 @@ import org.springframework.web.client.RestTemplate;
 
 @Repository
 public class QuestionEventRepository {
-    private RestTemplate restTemplate;
+    private RestTemplate answersRestTemplate;
+    private RestTemplate filesRestTemplate;
 
     @Autowired
-    public QuestionEventRepository(@Value("${answers.url}") String baseUrl) {
-        restTemplate = new RestTemplateBuilder().rootUri(baseUrl).build();
+    public QuestionEventRepository(@Value("${answers.url}") String answersUrl, @Value("${files.url}") String filesUrl) {
+        answersRestTemplate = new RestTemplateBuilder().rootUri(answersUrl).build();
+        filesRestTemplate = new RestTemplateBuilder().rootUri(filesUrl).build();
     }
 
     // Remove answers for such question, with simplified question record itself
     public void delete(Question question) {
-        restTemplate.delete("/questions/" + question.getId());
+        answersRestTemplate.delete("/questions/" + question.getId());
+        filesRestTemplate.delete("/files/" + question.getId());
     }
 
     // Notify answers microservice to create simplified record
     public void create(Question question) {
-        restTemplate.postForLocation("/questions", question.getId());
+        answersRestTemplate.postForLocation("/questions", question.getId());
     }
 }
