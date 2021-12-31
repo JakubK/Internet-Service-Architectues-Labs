@@ -19,6 +19,8 @@ services:
     build:
       dockerfile: Dockerfile
       context: files
+    volumes:
+      - ./uploads:/files
   answers:
     build:
       dockerfile: Dockerfile
