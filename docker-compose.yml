@@ -15,6 +15,13 @@ services:
     depends_on:
       - questions
       - answers
+  files-db:
+    image: mysql
+    volumes:
+      - files-data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=files
   files:
     build:
       dockerfile: Dockerfile
@@ -38,3 +45,5 @@ services:
       context: frontend
     depends_on:
       - proxy
+volumes:
+  files-data:
