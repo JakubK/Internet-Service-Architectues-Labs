@@ -46,7 +46,7 @@ public class FileController {
     }
   }
 
-  @GetMapping(path = "download/{id}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+  @GetMapping("download/{id}")
   public ResponseEntity<Resource> download(@PathVariable("id") int id) throws IOException {
     if(fileRepository.existsById(id)) {
       var f = fileRepository.findById(id).get();
@@ -55,7 +55,6 @@ public class FileController {
       Path path = Paths.get(file.getAbsolutePath());
       ByteArrayResource resource = new ByteArrayResource(Files.readAllBytes(path));
       HttpHeaders headers = new HttpHeaders();
-      headers.add("Content-Disposition", "attachment; filename=\"" + file.getName()+ "\"");
       headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
       headers.add("Pragma", "no-cache");
       headers.add("Expires", "0");
@@ -64,6 +63,7 @@ public class FileController {
       String mimeType = Files.probeContentType(path);
 
       return ResponseEntity.ok()
+              .headers(headers)
               .contentType(MediaType.parseMediaType(mimeType))
               .contentLength(file.length())
               .body(resource);
