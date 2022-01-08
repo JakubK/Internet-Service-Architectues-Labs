@@ -49,6 +49,8 @@ public class App {
         corsConfig.setMaxAge(3600L);
         corsConfig.setAllowedMethods(Arrays.asList("GET", "POST", "DELETE", "PUT"));
         corsConfig.addAllowedHeader("*");
+        corsConfig.addExposedHeader("Access-Control-Expose-Headers");
+        corsConfig.addExposedHeader("Location");
 
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", corsConfig);

@@ -16,6 +16,13 @@ export const Post = async(url: string, body: object) => {
   });
 }
 
+export const MultipartPost = async(url: string, body: FormData) => {
+  return await fetch(`${API_BASE}${url}`, {
+    method: 'POST',
+    body: body
+  });
+}
+
 export const Put = async(url: string, body: object) => {
   return await fetch(`${API_BASE}${url}`, {
     method: 'PUT',
