@@ -28,10 +28,24 @@ services:
       context: files
     volumes:
       - ./uploads:/files
+  answers-db:
+    image: mysql
+    volumes:
+      - answers-data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=answers
   answers:
     build:
       dockerfile: Dockerfile
       context: answers
+  questions-db:
+    image: mysql
+    volumes:
+      - questions-data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=questions
   questions:
     depends_on:
       - answers
@@ -47,3 +61,5 @@ services:
       - proxy
 volumes:
   files-data:
+  answers-data:
+  questions-data:
