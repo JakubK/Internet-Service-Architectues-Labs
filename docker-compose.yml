@@ -28,6 +28,8 @@ services:
       context: files
     volumes:
       - ./uploads:/files
+    depends_on:
+      - files-db
   answers-db:
     image: mysql
     volumes:
@@ -39,6 +41,8 @@ services:
     build:
       dockerfile: Dockerfile
       context: answers
+    depends_on:
+      - answers-db
   questions-db:
     image: mysql
     volumes:
@@ -49,6 +53,7 @@ services:
   questions:
     depends_on:
       - answers
+      - questions-db
     build:
       dockerfile: Dockerfile
       context: questions
