@@ -30,6 +30,7 @@ services:
       - ./uploads:/files
     depends_on:
       - files-db
+    restart: on-failure:2
   answers-db:
     image: mysql
     volumes:
@@ -43,6 +44,7 @@ services:
       context: answers
     depends_on:
       - answers-db
+    restart: on-failure:2
   questions-db:
     image: mysql
     volumes:
@@ -57,7 +59,7 @@ services:
     build:
       dockerfile: Dockerfile
       context: questions
-    restart: on-failure
+    restart: on-failure:2
   frontend:
     build:
       dockerfile: Dockerfile
