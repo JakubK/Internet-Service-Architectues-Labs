@@ -1,11 +1,19 @@
 version: '3.3'
 services:
-  proxy:
+  front_balancer:
+    build:
+      dockerfile: Dockerfile
+      context: front_balancer
+    restart: on-failure:2
+    depends_on:
+      - frontend1
+      - frontend2
+  reverse_proxy:
     ports:
       - 80:80
     build:
       dockerfile: Dockerfile
-      context: reverseProxy
+      context: reverse_proxy
     depends_on:
       - gateway    
   gateway:
@@ -22,7 +30,25 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=files
-  files:
+  files-balancer:
+    container_name: files
+    build:
+      dockerfile: Dockerfile
+      context: files_balancer
+    restart: on-failure:2
+    depends_on:
+      - files1
+      - files2
+  files1:
+    build:
+      dockerfile: Dockerfile
+      context: files
+    volumes:
+      - ./uploads:/files
+    depends_on:
+      - files-db
+    restart: on-failure:2
+  files2:
     build:
       dockerfile: Dockerfile
       context: files
@@ -60,12 +86,18 @@ services:
       dockerfile: Dockerfile
       context: questions
     restart: on-failure:2
-  frontend:
+  frontend1:
     build:
       dockerfile: Dockerfile
       context: frontend
     depends_on:
-      - proxy
+      - reverse_proxy
+  frontend2:
+    build:
+      dockerfile: Dockerfile
+      context: frontend
+    depends_on:
+      - reverse_proxy
 volumes:
   files-data:
   answers-data:
